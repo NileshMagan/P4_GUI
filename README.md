@@ -1,8 +1,8 @@
 # COMPILE & RUN
 Uses CPPCMS-1.2.1 version
 ```
-c++ hello.cpp -lcppcms -o hello
-./hello -c config.js
+c++ server.cpp -lcppcms -o server
+./server -c config.js
 ```
 
 
