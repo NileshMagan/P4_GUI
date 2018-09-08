@@ -17,47 +17,45 @@ class server : public cppcms::application {
             // dispatcher().assign("/(.*)",&server::serve_file,this,1);
             // dispatcher().assign("/.*)",&server::serve_file,this,1);
             
-            std::cout << "-server" << std::endl;
+            dispatcher().assign("/*.js",&server::js,this,1);
             dispatcher().assign("/(.*)",&server::index,this);
-            std::cout << "-server-mid" << std::endl;
-            mapper().assign("index","/index"); 
-            std::cout << "-server_end" << std::endl;
-        }  
-
-        //     // std::ifstream f(("./res/" + file_name).c_str());  
-        void serve_file(std::string file_name) {  
-            std::ifstream f("./res/index.html");  
-
-            if(!f) {  
-                response().status(404);
-            } else {  
-                response().content_type("application/octet-stream");  
-                response().out() << f.rdbuf();  
-            }  
+            // dispatcher().assign("/(.*)",&server::index,this);
+            std::cout << "-in server" << std::endl;
         }  
         
         void index() {  
-            // std::ifstream f(("./res/" + file_name).c_str());  
             std::cout << "index_start" << std::endl;
             
             std::ifstream f("./res/index.html");  
             if(!f) {  
                 response().status(404);
             } else {  
-                // response().content_type("application/octet-stream");  
                 response().content_type("text/HTML");  
                 response().out() << f.rdbuf();  
             }  
         }  
 
-        // virtual void main(std::string url) {         
-        //     std::cout << "main" << std::endl;
-        //     response().out() <<  
-        //         "<html>\n"  
-        //         "<body>\n"  
-        //         "  <h1>Hello World from server</h1>\n"  
-        //         "</body>\n"  
-        //         "</html>\n";  
+        void js(std::string file_name) {  
+            std::cout << "js_start" << std::endl;
+            
+            std::ifstream f(("./res/js/" + file_name).c_str());  
+            if(!f) {  
+                response().status(404);
+            } else {  
+                response().content_type("text/javascript");  
+                response().out() << f.rdbuf();  
+            }  
+        }  
+
+        // void serve_file(std::string file_name) {  
+        //     std::ifstream f("./res/index.html");  
+
+        //     if(!f) {  
+        //         response().status(404);
+        //     } else {  
+        //         response().content_type("application/octet-stream");  
+        //         response().out() << f.rdbuf();  
+        //     }  
         // }  
   
 };  

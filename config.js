@@ -5,5 +5,10 @@
     },  
     "http" : {  
         "script_names" : [ "/server" ]  
-    }  
+    },
+    "file_server" : {
+        "enable" : true,
+        "listing" : true,
+        "document_root" : "./res/"
+     }  
 }  

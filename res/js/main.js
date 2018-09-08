@@ -106,7 +106,7 @@
     };
 
     var img = new Image();
-    img.src = './honey_im_subtle.png';
+    img.src = 'images/honey_im_subtle.png';
 
     var texturePatternBrush = new fabric.PatternBrush(canvas);
     texturePatternBrush.source = img;
