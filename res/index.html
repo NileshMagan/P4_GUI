@@ -2,14 +2,22 @@
 <html>
     <head>
       <title>Canvas fabricJS</title>
-      <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="/res/css/style.css">
     </head>
     <body>
       <h1>Canvas fabricJS</h1>
         <canvas id="c" width="600" height="600"></canvas>
       <button onclick="processImage()">clicketihere</button>
       <a href="#" class="button" id="downloadImage">rfrfrf</a>
-      <a href="images/honey_im_subtle.png" class="button" id="downloadImage">rfrfrf</a>
+      <a href="/res/images/honey_im_subtle.png" class="button" id="downloadImage">rfrfrf</a>
+
+      
+    <form id="uploadbanner" enctype="multipart/form-data" method="post" action="/api">
+      <!-- <input id="fileupload" name="myfile" type="file" /> -->
+      First name:<br>
+      <input type="text" name="firstname"><br>
+      <input type="submit" value="submit" id="submit" />
+    </form>
 
     <div style="display: inline-block; margin-left: 10px; display:none">
       <button id="drawing-mode" class="btn btn-info">Cancel drawing mode</button><br>
@@ -47,9 +55,9 @@
     </div>
 
     
-    <script type="text/javascript" src="js/jquery.min.js"></script> 
-    <script type="text/javascript" src="js/fabric.min.js"></script> 
-    <script type="text/javascript" src="js/main.js"></script> 
+    <script type="text/javascript" src="/res/js/jquery.min.js"></script> 
+    <script type="text/javascript" src="/res/js/fabric.min.js"></script> 
+    <script type="text/javascript" src="/res/js/main.js"></script> 
 
   </body>
 </html>
