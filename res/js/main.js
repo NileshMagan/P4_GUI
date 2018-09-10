@@ -3,8 +3,10 @@
   var $ = function(id){return document.getElementById(id)};
 
   var canvas = this.__canvas = new fabric.Canvas('c', {
-    isDrawingMode: true
+    isDrawingMode: true,
+    backgroundColor: "black"
   });
+
 
   fabric.Object.prototype.transparentCorners = false;
 
@@ -17,7 +19,9 @@
       drawingShadowOffset = $('drawing-shadow-offset'),
       clearEl = $('clear-canvas');
 
-  clearEl.onclick = function() { canvas.clear() };
+  clearEl.onclick = function() { 
+    canvas.clear();
+  };
 
   drawingModeEl.onclick = function() {
     canvas.isDrawingMode = !canvas.isDrawingMode;
@@ -180,48 +184,66 @@
   }
 })();
 
+
+
 // Method to resize image
-function resizeImage(src) {
-  // Create an image
-  var img = document.createElement("img");
-  img.src = src;
+function resizeCanvas(canvas, src, _callback) {
 
-  var canvas = document.createElement("canvas");
-  //var canvas = $("<canvas>", {"id":"testing"})[0];
-  // var ctx = canvas.getContext("2d");
-  // ctx.drawImage(img, 0, 0);
+  // Dimensions of reszed canvas
+  var MAX_WIDTH = 28;
+  var MAX_HEIGHT = 28;
 
-  var MAX_WIDTH = 200;
-  var MAX_HEIGHT = 200;
-  var width = img.width;
-  var height = img.height;
+  // Get image of canvas and wait till it loads
+  var image = new Image();
+  image.src = src;
+  image.onload = function () {
+      console.log("1st to execute");
 
-  if (width > height) {
-      if (width > MAX_WIDTH) {
-          height *= MAX_WIDTH / width;
-          width = MAX_WIDTH;
-      }
-  } else {
-      if (height > MAX_HEIGHT) {
-          width *= MAX_HEIGHT / height;
-          height = MAX_HEIGHT;
-      }
+      // Get new image dimensions  
+      image.width = MAX_WIDTH;
+      image.height = MAX_HEIGHT;
+
+      // Resize canvas
+      var ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.width = image.width;
+      canvas.height = image.height;
+      ctx.drawImage(image, 0, 0, image.width, image.height);
+    
+      // Get url of image and return callback
+      var dataurl = canvas.toDataURL("image/png");
+      _callback(dataurl);
   }
-  canvas.width = width;
-  canvas.height = height;
-  var ctx = canvas.getContext("2d");
-  ctx.drawImage(img, 0, 0, width, height);
 
-  var dataurl = canvas.toDataURL("image/png");
-  return dataurl;
+}
+
+// Clone canvas
+function cloneCanvas(oldCanvas) {
+
+  // Create a new canvas
+  var newCanvas = document.createElement('canvas');
+  var context = newCanvas.getContext('2d');
+
+  // Set dimensions
+  newCanvas.width = oldCanvas.width;
+  newCanvas.height = oldCanvas.height;
+
+  // Apply the old canvas to the new one
+  context.drawImage(oldCanvas, 0, 0);
+
+  // Return the new canvas
+  return newCanvas;
 }
 
 // Triggered to send image to backend
 function processImage() {
-  // Grab image from canvas
+  // Grab image from canvas and make a copy
   var canvas = document.getElementById("c");
-  canvasToImage(canvas, function(file) {
-    
+  var canvasCopy = cloneCanvas(canvas);
+
+  // Pass copy so original not affected and provide callback
+  canvasToImage(canvasCopy, function(file) {
+
     // Prepare form data with name and image
     var formData = new FormData();
     formData.append('_1',"Image_name");
@@ -246,7 +268,7 @@ function processImage() {
     })
     .done(function(data) {
     // This promise callback is not used yet since server is not sending data yet
-      console.log(data); 
+      console.log(data);
     });
   });
 }
@@ -254,16 +276,16 @@ function processImage() {
 // Method to convert a canvas canvas to file
 function canvasToImage(canvas, _callback) {
   // Get canvas data and convert it to a URL
-  var img = canvas.toDataURL("image/png");
-
-  // Get image from URL and create a file from it
-  fetch(img)
-  .then(res => res.blob())
-  .then(blob => {
-    // Create file and then trigger callback again
-    const file = new File([blob], 'dot.png', blob);
-    _callback(file);
-  })
+  var imgSrc = canvas.toDataURL("image/png");
+  resizeCanvas(canvas, imgSrc, function(src) {    
+    console.log("2nd to execute");
+      // Get image from URL and create a file from it
+      fetch(src)
+      .then(res => res.blob())
+      .then(blob => {
+        // Create file and then trigger callback again
+        const file = new File([blob], 'dot.png', blob);
+        _callback(file);
+      })
+  });
 }
-
-

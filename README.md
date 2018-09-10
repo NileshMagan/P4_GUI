@@ -4,7 +4,7 @@
 
 Compile and run with Makefile
 ```
-make all
+make allu
 ```
 
 No Makefile
