@@ -9,7 +9,7 @@
         "rewrite" : [ 
             { "regex" : "/res(/.+)", "pattern" : "$1" },
             // { "regex" : ".*" , "pattern" : "/server$0" }
-            { "regex" : "/api" , "pattern" : "/server$0" }
+            { "regex" : "/saveImage" , "pattern" : "/server$0" }
             // { "regex" : "/r(/.+)", "pattern" : "$1" },
          ],  
     },

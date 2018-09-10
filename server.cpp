@@ -13,78 +13,56 @@
 
 class server : public cppcms::application {  
     public:  
-
+        
+        // Method that handles initialisation and routing for APIs
         server(cppcms::service &srv) :  cppcms::application(srv)  { 
-            std::cout << "-in server" << std::endl;
 
-
-            // dispatcher().assign("/?",&server::index,this);
-            // mapper().assign("index","/");
-
-            // dispatcher().assign("/(.*)",&server::api,this,1);
-            // mapper().assign("api","/");
+            std::cout << "- Routing to API" << std::endl;
+            // Route any requests with '/saveImage' to the 'saveImage' API
+            dispatcher().assign("/(.*)",&server::saveImage,this,1);
             
-            // dispatcher().assign("/api/(\\d+)",&server::api,this,1);  
-            // mapper().assign("api","/api/{1}");  
-            dispatcher().assign("/(.*)",&server::api,this,1);
-            mapper().assign("api","/");
-            
-            std::cout << "-in server end" << std::endl;
         }  
         
+        // API request to save image - parameter not used. Need to figure out correct param
+        void saveImage(std::string h) {  
+            std::cout << "- Starting saveImage API "  << std::endl;
 
-        void api(std::string h) {  
-            std::cout << "api_start "  << std::endl;
-
-
+            // Process input
             content::upload c;
             if(request().request_method()=="POST") {
-                std::cout << "post " << std::endl;
+                std::cout << "- Request was POSTed successfully " << std::endl;
                 c.info.load(context());
                 if(c.info.validate()) {
                     
-                     std::cout << "inside: " << std::endl;
-
+                    // Create name for image
                     std::string new_name = "latest_image1";
+
+                    // Check mimetype of image in
                     if(c.info.image.value()->mime() == "image/png")
                         new_name += ".png";
                     else
                         new_name += ".jpg"; // we had validated mime-type
-                    //
+                    
+                    std::cout << "- Request valid, image saved " << std::endl;
 
+                    // Save image to /uploads/ folder
                     c.info.image.value()->save_to("./uploads/" + new_name); 
                     c.info.clear();
+
+                    // TODO:
+                    //
+                    // Josh can add code here for UART
                 }
             }
-
-            // render("upload",c);
-            
-            std::cout << "api_end: " << std::endl;
-            // if(c.info.image.value()->mime() == "image/png") {
-            //     std::cout << " IMAGE " << std::endl;
-            // } else {
-            //     std::cout << " NOT IMAGE " << std::endl;                
-            // }
-
-
+            std::cout << "- Ending saveImage API " << std::endl;
         }  
 
-        // void index() {  
-        //     std::cout << "index_start" << std::endl;
-            
-        //     std::ifstream f("./res/index.html");  
-        //     if(!f) {  
-        //         response().status(404);
-        //     } else {  
-        //         response().content_type("text/HTML");  
-        //         response().out() << f.rdbuf();  
-        //     }  
-        // }  
-
+        // Default method that runs every time (it seems)
         virtual void main(std::string path) {
-            std::cout << "maaaaaiiiiiiiiiiin" << std::endl;
             
+            std::cout << "+++++ Server request started" << std::endl;
             cppcms::application::main(path);
+            std::cout << "----- Server request finished" << std::endl;
         }
 
   
@@ -93,6 +71,7 @@ class server : public cppcms::application {
 
 int main(int argc,char ** argv) {  
 
+    // Server set up
     try {  
         cppcms::service srv(argc,argv); 
         srv.applications_pool().mount(  

@@ -21,6 +21,7 @@
 
   clearEl.onclick = function() { 
     canvas.clear();
+    canvas.backgroundColor = "black";
   };
 
   drawingModeEl.onclick = function() {
@@ -258,7 +259,7 @@ function processImage() {
     // Process the form
     $.ajax({
         type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-        url         : '/api', // the url where we want to POST
+        url         : '/saveImage', // the url where we want to POST
         data        : formData, // our data object
         cache       : false, 
         dataType    : 'json', // Data to expect from server
