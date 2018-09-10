@@ -12,12 +12,23 @@
       <a href="/res/images/honey_im_subtle.png" class="button" id="downloadImage">rfrfrf</a>
 
       
-    <form id="uploadbanner" enctype="multipart/form-data" method="post" action="/api">
-      <!-- <input id="fileupload" name="myfile" type="file" /> -->
-      First name:<br>
-      <input type="text" name="firstname"><br>
-      <input type="submit" value="submit" id="submit" />
+    <!-- <form enctype="multipart/form-data" method="post" action="/api"> -->
+    <form>
+      <!-- <input id="fileupload" name="myfile" type="file" />
+      <input type="submit" value="submit" id="submit" /> -->
+      <input type="text" name="_1" value="name_of_image" hidden>
+      <input type="file" name="_2" id="uploadedImage" >
+      <input type="submit" name="_3" value="Upload"  >
     </form>
+
+    <!-- <form method="post" action="" enctype="multipart/form-data" >
+      <input type="text" name="_1"  >
+      <input type="file" name="_2"  >
+      <input type="submit" name="_3" value="Upload"  >
+    </form> -->
+  
+
+
 
     <div style="display: inline-block; margin-left: 10px; display:none">
       <button id="drawing-mode" class="btn btn-info">Cancel drawing mode</button><br>
@@ -57,6 +68,7 @@
     
     <script type="text/javascript" src="/res/js/jquery.min.js"></script> 
     <script type="text/javascript" src="/res/js/fabric.min.js"></script> 
+    <script type="text/javascript" src="/res/js/blob-util.min.js"></script> 
     <script type="text/javascript" src="/res/js/main.js"></script> 
 
   </body>

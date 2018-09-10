@@ -8,7 +8,8 @@
         "script_names" : [ "/server" ],
         "rewrite" : [ 
             { "regex" : "/res(/.+)", "pattern" : "$1" },
-            { "regex" : ".*" , "pattern" : "/server$0" }
+            // { "regex" : ".*" , "pattern" : "/server$0" }
+            { "regex" : "/api" , "pattern" : "/server$0" }
             // { "regex" : "/r(/.+)", "pattern" : "$1" },
          ],  
     },
