@@ -1,3 +1,4 @@
+// Fabric JS method to draw
 (function() {
   var $ = function(id){return document.getElementById(id)};
 
@@ -179,13 +180,7 @@
   }
 })();
 
-
-function debugBase64(base64URL){
-  var win = window.open();
-  win.document.write('<iframe src="' + base64URL  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
-}
-
-
+// Method to resize image
 function resizeImage(src) {
   // Create an image
   var img = document.createElement("img");
@@ -221,41 +216,15 @@ function resizeImage(src) {
   return dataurl;
 }
 
-
-function processImage() {
-  var canvas = document.getElementById("c");
-  var img = canvas.toDataURL("image/png");
-  
-  
-  var button = document.getElementById('downloadImage');
-  button.addEventListener('click', function (e) {                                              
-    // var dataURL = canvas.toDataURL('image/png');
-    resized_img = img;
-      var resized_img = resizeImage(img);
-    button.href = resized_img;
-    console.log("IMG:");
-    console.log(img);
-    console.log("RESIZED IMG:");
-    console.log(resized_img);
-    debugBase64(resized_img);
-  });
-
-  // e.g This will open an image in a new window
-  // debugBase64();
-
-
-  button.click();
-  // console.log(button.href);    
-  // alert("hi");
-}
-
+// Triggered to send image to backend
 function processImage() {
   // Grab image from canvas
-  getImage(function(file) {
+  var canvas = document.getElementById("c");
+  canvasToImage(canvas, function(file) {
     
     // Prepare form data with name and image
     var formData = new FormData();
-    formData.append('_1',$('input[name=_1]').val());
+    formData.append('_1',"Image_name");
     formData.append('_2',file);
 
     // Print form data
@@ -276,16 +245,15 @@ function processImage() {
         encode      : true
     })
     .done(function(data) {
-    // using the done promise callback
+    // This promise callback is not used yet since server is not sending data yet
       console.log(data); 
     });
   });
 }
 
-
-function getImage(_callback) {
+// Method to convert a canvas canvas to file
+function canvasToImage(canvas, _callback) {
   // Get canvas data and convert it to a URL
-  var canvas = document.getElementById("c");
   var img = canvas.toDataURL("image/png");
 
   // Get image from URL and create a file from it
