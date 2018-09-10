@@ -1,34 +1,13 @@
 
 <html>
     <head>
-      <title>Canvas fabricJS</title>
+      <title>HW vs SW</title>
       <link rel="stylesheet" href="/res/css/style.css">
     </head>
     <body>
-      <h1>Canvas fabricJS</h1>
+      <h1>Draw a digit from 0-9, then click send</h1>
         <canvas id="c" width="600" height="600"></canvas>
-      <button onclick="processImage()">clicketihere</button>
-      <a href="#" class="button" id="downloadImage">rfrfrf</a>
-      <a href="/res/images/honey_im_subtle.png" class="button" id="downloadImage">rfrfrf</a>
-
-      
-    <!-- <form enctype="multipart/form-data" method="post" action="/api"> -->
-    <form>
-      <!-- <input id="fileupload" name="myfile" type="file" />
-      <input type="submit" value="submit" id="submit" /> -->
-      <input type="text" name="_1" value="name_of_image" hidden>
-      <input type="file" name="_2" id="uploadedImage" >
-      <input type="submit" name="_3" value="Upload"  >
-    </form>
-
-    <!-- <form method="post" action="" enctype="multipart/form-data" >
-      <input type="text" name="_1"  >
-      <input type="file" name="_2"  >
-      <input type="submit" name="_3" value="Upload"  >
-    </form> -->
-  
-
-
+      <button onclick="processImage()">Send Image</button>
 
     <div style="display: inline-block; margin-left: 10px; display:none">
       <button id="drawing-mode" class="btn btn-info">Cancel drawing mode</button><br>

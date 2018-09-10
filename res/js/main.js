@@ -250,109 +250,52 @@ function processImage() {
 }
 
 function processImage() {
-  var canvas = document.getElementById("c");
-  var img = canvas.toDataURL("image/png");
-  
-  
-  var button = document.getElementById('downloadImage');
-  button.addEventListener('click', function (e) {                                              
-    // var dataURL = canvas.toDataURL('image/png');
-    // resized_img = img;
-      var resized_img = resizeImage(img);
-    button.href = resized_img;
-    console.log("IMG:");
-    console.log(img);
-    console.log("RESIZED IMG:");
-    console.log(resized_img);
-    debugBase64(resized_img);
+  // Grab image from canvas
+  getImage(function(file) {
+    
+    // Prepare form data with name and image
+    var formData = new FormData();
+    formData.append('_1',$('input[name=_1]').val());
+    formData.append('_2',file);
+
+    // Print form data
+    console.log("Form data: ");
+    for (var key of formData.entries()) {
+      console.log(key[0] + ', ' + key[1]);
+    }
+
+    // Process the form
+    $.ajax({
+        type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+        url         : '/api', // the url where we want to POST
+        data        : formData, // our data object
+        cache       : false, 
+        dataType    : 'json', // Data to expect from server
+        processData : false, // Don't process the files
+        contentType : false, // Set content type to false as jQuery wil
+        encode      : true
+    })
+    .done(function(data) {
+    // using the done promise callback
+      console.log(data); 
+    });
   });
-
-  // e.g This will open an image in a new window
-  // debugBase64();
-
-
-  button.click();
-  // console.log(button.href);    
-  // alert("hi");
 }
 
 
 function getImage(_callback) {
-    var canvas = document.getElementById("c");
-    var img = canvas.toDataURL("image/png");
-    // console.log("IMG-->: " + img);
-    // const img = document.getElementById('id');
+  // Get canvas data and convert it to a URL
+  var canvas = document.getElementById("c");
+  var img = canvas.toDataURL("image/png");
 
-    fetch(img)
-    .then(res => res.blob())
-    .then(blob => {
-      const file = new File([blob], 'dot.png', blob);
-      // console.log(file);
-      console.log("FINISHING THING");
-      _callback(file);
-    })
-
-
-    // blobUtil.imgSrcToBlob(img.src).then(function (blob) {
-    //   console.log('Read the content of the img as a blob of size ' + blob.size); 
-    //   return new File([blob], 'new.png', blob);
-    // })
-
-    // var resized_img = resizeImage(img);
-    // return resized_img;
-    // return debugBase64(resized_img);
+  // Get image from URL and create a file from it
+  fetch(img)
+  .then(res => res.blob())
+  .then(blob => {
+    // Create file and then trigger callback again
+    const file = new File([blob], 'dot.png', blob);
+    _callback(file);
+  })
 }
 
 
-
-
-$(document).ready(function() {
-
-  // process the form
-  $('form').submit(function(event) {
-      // Prevent default behaviour
-      event.preventDefault();
-
-      var imgFile = document.getElementById("uploadedImage").files[0];
-      // var imgPath = getImage();
-
-
-
-      // Get asynch procedure working
-      getImage(function(file) {
-        
-          // Prepare form data with name and image
-        var formData = new FormData();
-        formData.append('_1',$('input[name=_1]').val());
-        formData.append('_2',file);
-  
-        // Print form data
-        // console.log("IMGP: ");
-        // console.log(imgFile);
-        console.log("GOTTEN FILE: ");
-        for (var key of formData.entries()) {
-          console.log(key[0] + ', ' + key[1]);
-        }
-
-        // Prcoess the form
-        $.ajax({
-            type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
-            url         : '/api', // the url where we want to POST
-            data        : formData, // our data object
-            cache       : false, 
-            dataType    : 'json', // Data to expect from server
-            processData : false, // Don't process the files
-            contentType : false, // Set content type to false as jQuery wil
-            encode      : true
-        })
-        .done(function(data) {
-        // using the done promise callback
-          console.log(data); 
-        });
-      });
-        
-
-
-  });
-
-});
