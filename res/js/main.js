@@ -191,8 +191,8 @@
 function resizeCanvas(canvas, src, _callback) {
 
   // Dimensions of reszed canvas
-  var MAX_WIDTH = 28;
-  var MAX_HEIGHT = 28;
+  var MAX_WIDTH = 20;
+  var MAX_HEIGHT = 20;
 
   // Get image of canvas and wait till it loads
   var image = new Image();
