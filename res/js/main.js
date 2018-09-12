@@ -262,14 +262,16 @@ function processImage() {
         url         : '/saveImage', // the url where we want to POST
         data        : formData, // our data object
         cache       : false, 
-        dataType    : 'json', // Data to expect from server
+        dataType    : 'text', // Data to expect from server
         processData : false, // Don't process the files
         contentType : false, // Set content type to false as jQuery wil
-        encode      : true
-    })
-    .done(function(data) {
-    // This promise callback is not used yet since server is not sending data yet
-      console.log(data);
+        encode      : true,
+		success: function(response, status, jqXHR){
+			console.log(response);
+		},
+		error: function(response, status, jqXHR){
+			console.log(status);
+		}
     });
   });
 }

@@ -111,6 +111,8 @@ class server : public cppcms::application {
 					printf("SW result: %d; SW time taken: %f\n", SwRes, swTimeTaken);
 					printf("HW result: %d; HW time taken: %f\n", HwRes, hwTimeTaken);
 					printf("------------------------------------\n");	
+					
+					response().out() << "SW Result: " << SwRes << " SW time is: " << swTimeTaken << "\n" << "HW Result: " << HwRes << " HW time is: " << hwTimeTaken << "\n";
                 }
             }
             std::cout << "- Ending saveImage API " << std::endl;
