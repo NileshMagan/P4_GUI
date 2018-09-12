@@ -1,50 +1,132 @@
 
 <html>
+    <!-- Head -->
     <head>
       <title>HW vs SW</title>
       <link rel="stylesheet" href="/res/css/style.css">
+      <nav>NAVBAR</nav>
     </head>
+
+    <!-- Body -->
     <body>
-      <h1>Draw a digit from 0-9, then click send</h1>
+      <!-- <h1>Draw a digit from 0-9, then click send</h1>
         <canvas id="c" width="600" height="600"></canvas>
-      <button onclick="processImage()">Send Image</button>
+      <button onclick="processImage()">Send Image</button> -->
 
-    <div style="display: inline-block; margin-left: 10px;">
-      <button id="drawing-mode" class="btn btn-info">Cancel drawing mode</button><br>
-      <button id="clear-canvas" class="btn btn-info">Clear</button><br>
+      <!-- Canvas Options -->
+      <!-- <div style="display: inline-block; margin-left: 10px;"> 
+        <button id="drawing-mode" class="btn btn-info" >Cancel drawing mode</button><br>
+        <button id="clear-canvas" class="btn btn-info">Clear</button><br>
 
-      <div id="drawing-mode-options">
-        <label for="drawing-mode-selector">Mode:</label>
-        <select id="drawing-mode-selector">
-          <option>Pencil</option>
-          <option>Circle</option>
-          <option>Spray</option>
-          <option>Pattern</option>
-          <option>hline</option>
-          <option>vline</option>
-          <option>square</option>
-          <option>diamond</option>
-          <option>texture</option>
-        </select><br>
+        <div id="drawing-mode-options">
+          <label for="drawing-mode-selector">Mode:</label>
+          <select id="drawing-mode-selector">
+            <option>Pencil</option>
+            <option>Circle</option>
+            <option>Spray</option>
+            <option>Pattern</option>
+            <option>hline</option>
+            <option>vline</option>
+            <option>square</option>
+            <option>diamond</option>
+            <option>texture</option>
+          </select><br>
 
-        <label for="drawing-line-width">Line width:</label>
-        <span class="info">30</span><input type="range" value="30" min="0" max="150" id="drawing-line-width"><br>
+          <label for="drawing-line-width">Line width:</label>
+          <span class="info">30</span><input type="range" value="30" min="0" max="150" id="drawing-line-width"><br>
 
-        <label for="drawing-color">Line color:</label>
-        <input type="color" value="#FFFFFF" id="drawing-color"><br>
+          <label for="drawing-color">Line color:</label>
+          <input type="color" value="#FFFFFF" id="drawing-color"><br>
 
-        <label for="drawing-shadow-color">Shadow color:</label>
-        <input type="color" value="#005E7A" id="drawing-shadow-color"><br>
+          <label for="drawing-shadow-color">Shadow color:</label>
+          <input type="color" value="#005E7A" id="drawing-shadow-color"><br>
 
-        <label for="drawing-shadow-width">Shadow width:</label>
-        <span class="info">0</span><input type="range" value="0" min="0" max="50" id="drawing-shadow-width"><br>
+          <label for="drawing-shadow-width">Shadow width:</label>
+          <span class="info">0</span><input type="range" value="0" min="0" max="50" id="drawing-shadow-width"><br>
 
-        <label for="drawing-shadow-offset">Shadow offset:</label>
-        <span class="info">0</span><input type="range" value="0" min="0" max="50" id="drawing-shadow-offset"><br>
-      </div>
-    </div>
+          <label for="drawing-shadow-offset">Shadow offset:</label>
+          <span class="info">0</span><input type="range" value="0" min="0" max="50" id="drawing-shadow-offset"><br>
+        </div>
+      </div> -->
 
+    <!-- Sections -->
+    <div class="outer">
+      
+      <!-- Section 1 -->
+      <div id="inner-1" class="inner">
+        <div class="inner-list"> 
+          Draw a digit from 0-9, then click send
+        </div>    
+        <button onclick="processImage()">
+          Send Image
+        </button>
+        
+        <!-- Canvas Options -->
+        <div style="display: inline-block; margin-left: 10px;">
+
+          <button id="drawing-mode" class="btn btn-info" >Cancel drawing mode</button><br>
+          <button id="clear-canvas" class="btn btn-info">Clear</button><br>
     
+          <div id="drawing-mode-options">
+            <label for="drawing-mode-selector">Mode:</label>
+            <select id="drawing-mode-selector">
+              <option>Pencil</option>
+              <option>Circle</option>
+              <option>Spray</option>
+              <option>Pattern</option>
+              <option>hline</option>
+              <option>vline</option>
+              <option>square</option>
+              <option>diamond</option>
+              <option>texture</option>
+            </select><br>
+    
+            <label for="drawing-line-width">Line width:</label>
+            <span class="info">30</span><input type="range" value="30" min="0" max="150" id="drawing-line-width"><br>
+    
+            <label for="drawing-color">Line color:</label>
+            <input type="color" value="#FFFFFF" id="drawing-color"><br>
+    
+            <label for="drawing-shadow-color">Shadow color:</label>
+            <input type="color" value="#005E7A" id="drawing-shadow-color"><br>
+    
+            <label for="drawing-shadow-width">Shadow width:</label>
+            <span class="info">0</span><input type="range" value="0" min="0" max="50" id="drawing-shadow-width"><br>
+    
+            <label for="drawing-shadow-offset">Shadow offset:</label>
+            <span class="info">0</span><input type="range" value="0" min="0" max="50" id="drawing-shadow-offset"><br>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Section 2 -->
+      <div id="inner-2" class="inner">
+        <canvas id="c" width="600" height="600"></canvas>
+      </div>
+
+      <!-- Section 3 -->
+      <div id="inner-3" class="inner">
+        <div class="inner-list"> 
+          Speed of Hardware was: 
+        </div>    
+        <div class="inner-list"> 
+          Speed of Software was: 
+        </div>    
+        <div class="inner-list"> 
+          Cycles/Image of Hardware was: 
+        </div>    
+        <div class="inner-list"> 
+          Cycles/Image of Software was: 
+        </div>    
+        <button onclick="processImage()">
+          Send Image
+        </button>
+      </div>
+
+    </div>
+    
+    <!-- JS libraries -->
     <script type="text/javascript" src="/res/js/jquery.min.js"></script> 
     <script type="text/javascript" src="/res/js/fabric.min.js"></script> 
     <script type="text/javascript" src="/res/js/blob-util.min.js"></script> 
