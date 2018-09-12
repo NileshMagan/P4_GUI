@@ -191,8 +191,8 @@
 function resizeCanvas(canvas, src, _callback) {
 
   // Dimensions of reszed canvas
-  var MAX_WIDTH = 28;
-  var MAX_HEIGHT = 28;
+  var MAX_WIDTH = 20;
+  var MAX_HEIGHT = 20;
 
   // Get image of canvas and wait till it loads
   var image = new Image();
@@ -262,14 +262,16 @@ function processImage() {
         url         : '/saveImage', // the url where we want to POST
         data        : formData, // our data object
         cache       : false, 
-        dataType    : 'json', // Data to expect from server
+        dataType    : 'text', // Data to expect from server
         processData : false, // Don't process the files
         contentType : false, // Set content type to false as jQuery wil
-        encode      : true
-    })
-    .done(function(data) {
-    // This promise callback is not used yet since server is not sending data yet
-      console.log(data);
+        encode      : true,
+		success: function(response, status, jqXHR){
+			console.log(response);
+		},
+		error: function(response, status, jqXHR){
+			console.log(status);
+		}
     });
   });
 }
