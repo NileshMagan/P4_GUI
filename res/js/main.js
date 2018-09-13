@@ -7,7 +7,6 @@
     backgroundColor: "black"
   });
 
-
   fabric.Object.prototype.transparentCorners = false;
 
   var drawingModeEl = $('drawing-mode'),
@@ -183,9 +182,43 @@
       color: drawingShadowColorEl.value,
     });
   }
+
 })();
 
 
+$( document ).ready(function() {
+    // Add spinner
+    addSpinner();
+});
+
+// Create Spinner 
+function addSpinner() {
+  // import {Spinner} from 'spin.js';
+  
+  var opts = {
+    lines: 13, // The number of lines to draw
+    length: 38, // The length of each line
+    width: 17, // The line thickness
+    radius: 45, // The radius of the inner circle
+    scale: 1, // Scales overall size of the spinner
+    corners: 1, // Corner roundness (0..1)
+    color: '#f0f0f0', // CSS color or array of colors
+    fadeColor: 'transparent', // CSS color or array of colors
+    speed: 1, // Rounds per second
+    rotate: 0, // The rotation offset
+    animation: 'spinner-line-fade-quick', // The CSS animation name for the lines
+    direction: 1, // 1: clockwise, -1: counterclockwise
+    zIndex: 2e9, // The z-index (defaults to 2000000000)
+    className: 'spinner', // The CSS class to assign to the spinner
+    top: '50%', // Top position relative to parent
+    left: '50%', // Left position relative to parent
+    shadow: '0 0 1px transparent', // Box-shadow for the lines
+    position: 'absolute' // Element positioning
+  };
+
+  var target = document.getElementById('spinner');
+  var spinner = new Spinner(opts).spin(target);
+}
 
 // Method to resize image
 function resizeCanvas(canvas, src, _callback) {
@@ -238,6 +271,11 @@ function cloneCanvas(oldCanvas) {
 
 // Triggered to send image to backend
 function processImage() {
+  
+  // Change display
+  var overlay = document.getElementById("overlay");
+  overlay.style.display = "inline";
+
   // Grab image from canvas and make a copy
   var canvas = document.getElementById("c");
   var canvasCopy = cloneCanvas(canvas);
@@ -267,7 +305,18 @@ function processImage() {
         contentType : false, // Set content type to false as jQuery wil
         encode      : true,
 		success: function(response, status, jqXHR){
-			console.log(response);
+      var data = JSON.parse(response);
+			console.log(data.HW.res);
+			console.log(data.SW.res);
+			console.log(data.HW.clockCycles);
+      console.log(data.SW.clockCycles);
+      
+      overlay.style.display = "none";
+      
+      document.getElementById("HW-res").innerHTML = data.HW.res; 
+      document.getElementById("SW-res").innerHTML = data.SW.res; 
+      document.getElementById("HW-CC").innerHTML = data.HW.clockCycles; 
+      document.getElementById("SW-CC").innerHTML = data.SW.clockCycles; 
 		},
 		error: function(response, status, jqXHR){
 			console.log(status);

@@ -18,7 +18,7 @@
 #include "custom.h"
 #include <time.h>
 
-//freq in Mhz
+// Freq in Mhz
 // #define swFreq 1900
 #define swFreq 2400
 #define hwFreq 100
@@ -123,10 +123,15 @@ class server : public cppcms::application {
 					
 					printf("Full image sent\n");
 					printf("SW result: %d; SW cycles per image (million): %f\n", SwRes, swTimeTaken*swFreq);
-					printf("HW result: %d; SW cycles per image (million) %f\n", HwRes, hwTimeTaken*hwFreq);
+					printf("HW result: %d; HW cycles per image (million) %f\n", HwRes, hwTimeTaken*hwFreq);
 					printf("------------------------------------\n");	
 					
-					response().out() << "SW Result: " << SwRes << " SW cycles is: " << swTimeTaken*swFreq << "\n" << "HW Result: " << HwRes << " HW cycles is: " << hwTimeTaken*hwFreq << "\n";
+					double SwClockCyles = swTimeTaken*swFreq;
+					double HwClockCyles = hwTimeTaken*hwFreq;
+					
+					// response().out() << "SW Result: " << SwRes << " SW cycles is: " << swTimeTaken*swFreq << "\n" << "HW Result: " << HwRes << " HW cycles is: " << hwTimeTaken*hwFreq << "\n";
+					response().out() << "{\"SW\": {\"res\":" << SwRes << ",\"clockCycles\":" << SwClockCyles << "},"
+									 << "\"HW\": {\"res\":" << HwRes << ",\"clockCycles\":" << HwClockCyles << "}}";
 				}
 			}
 			std::cout << "- Ending saveImage API " << std::endl;

@@ -59,7 +59,7 @@
           Instructions
         </div>    
         <div class="inner-list"> 
-          Draw a digit from 0-9 on the black canvas, then click send
+          Draw a digit from O-9 on the black canvas, then click send
         </div>    
         <button class="btn btn-info" onclick="processImage()">
           Send Image
@@ -122,32 +122,32 @@
           <div class="inner-subtitle"> 
             Hardware: 
           </div>    
-          <div class="inner-result"> 
-            4
+          <div id="HW-res" class="inner-result"> 
+            -
           </div>    
           <div class="inner-subtitle"> 
             Software: 
           </div>    
-          <div class="inner-result"> 
-            4
+          <div id="SW-res" class="inner-result"> 
+            -
           </div> 
         </div>
 
         <div class="inner-section">
           <div class="inner-list"> 
-            Clock cycles taken: 
+            Clock cycles (million) taken: 
           </div>    
           <div class="inner-subtitle"> 
             Hardware: 
           </div>    
-          <div class="inner-result"> 
-            4
+          <div id="HW-CC" class="inner-result"> 
+            -
           </div>    
           <div class="inner-subtitle"> 
             Software: 
           </div>    
-          <div class="inner-result"> 
-            4
+          <div id="SW-CC" class="inner-result"> 
+            -
           </div> 
         </div>
       </div>
@@ -155,10 +155,14 @@
     </div>
     
     <!-- JS libraries -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.js"></script> 
     <script type="text/javascript" src="/res/js/jquery.min.js"></script> 
     <script type="text/javascript" src="/res/js/fabric.min.js"></script> 
     <script type="text/javascript" src="/res/js/blob-util.min.js"></script> 
     <script type="text/javascript" src="/res/js/main.js"></script> 
 
+    <div id="overlay">
+      <div id="spinner"></div>
+    </div>
   </body>
 </html>
