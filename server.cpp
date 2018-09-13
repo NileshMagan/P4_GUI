@@ -129,9 +129,10 @@ class server : public cppcms::application {
 					double SwClockCyles = swTimeTaken*swFreq;
 					double HwClockCyles = hwTimeTaken*hwFreq;
 					
-					// response().out() << "SW Result: " << SwRes << " SW cycles is: " << swTimeTaken*swFreq << "\n" << "HW Result: " << HwRes << " HW cycles is: " << hwTimeTaken*hwFreq << "\n";
 					response().out() << "{\"SW\": {\"res\":" << SwRes << ",\"clockCycles\":" << SwClockCyles << "},"
 									 << "\"HW\": {\"res\":" << HwRes << ",\"clockCycles\":" << HwClockCyles << "}}";
+					// response().out() << "{\"SW\": {\"res\":" << 1 << ",\"clockCycles\":" << 2 << "},"
+					// 				 << "\"HW\": {\"res\":" << 3 << ",\"clockCycles\":" << 4 << "}}";
 				}
 			}
 			std::cout << "- Ending saveImage API " << std::endl;

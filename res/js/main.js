@@ -276,14 +276,16 @@ function updateStatistics( check ) {
   numberOfImages++;
   if (check) {
     numberCorrect++;
-    accuracy = numberCorrect/numberOfImages * 100;
-    document.getElementById("accuracy").innerHTML = accuracy; 
-    document.getElementById("image-no").innerHTML = numberOfImages; 
-  } else {
-    accuracy = numberCorrect/numberOfImages * 100;
-    document.getElementById("accuracy").innerHTML = accuracy; 
-    document.getElementById("image-no").innerHTML = numberOfImages; 
   }
+    accuracy = numberCorrect/numberOfImages * 100;
+    accuracy = Number( accuracy.toPrecision(3) )
+    document.getElementById("accuracy").innerHTML = accuracy; 
+    document.getElementById("image-no").innerHTML = numberOfImages; 
+
+    // Handle overlays
+    overlay1.style.display = "none";
+    // document.getElementById("inner-2").style.zIndex = "auto"; 
+    document.getElementById("inner-3").style.zIndex = "auto"; 
 }
 
 
@@ -329,8 +331,13 @@ function processImage() {
 			console.log(data.HW.clockCycles);
       console.log(data.SW.clockCycles);
       
+      // Handle overlays
       overlay.style.display = "none";
+      overlay1.style.display = "inline";
+      // document.getElementById("inner-2").style.zIndex = 1; 
+      document.getElementById("inner-3").style.zIndex = 1; 
       
+
       document.getElementById("HW-res").innerHTML = data.HW.res; 
       document.getElementById("SW-res").innerHTML = data.SW.res; 
       document.getElementById("HW-CC").innerHTML = data.HW.clockCycles; 
