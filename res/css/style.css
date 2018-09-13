@@ -1,5 +1,25 @@
+html {
+    font-family: 'Dosis', sans-serif;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+
+.nav {
+    width: 100%;
+    background-color: rgb(0, 94, 255);
+    /* height: 25px; */
+    text-align: center;
+    padding: 25px 0;
+    font-size: 3.0em;
+    color: white;
+}
+
 #c {
-    border: rgb(177, 47, 47) solid;
+    border: rgb(0, 0, 0) solid;
 }
 
 #drawing-mode, #drawing-mode-options {
@@ -15,18 +35,89 @@
 }
 
 .inner {
-    flex-grow: 1;
-    padding: 10px;
+    padding: 30px;
+    font-size: 2.5em;
+    background-color: #f8f8f8;
+    /* flex-grow: 1; */
+    /* justify-content: center; */
+
+
+    height: calc(100% - 65px);
+    height: -o-calc(100% - 65px); /* opera */
+    height: -webkit-calc(100% - 65px); /* google, safari */
+    height: -moz-calc(100% - 65px); /* firefox */
 }
 
-#inner-1 {
-    background-color: red;
+#inner-1, #inner-3 {
+    padding-top: 30px;
+    width: 30%;
+    text-align: center;
 }
 
 #inner-2 {
-    background-color: rgb(72, 0, 255);
+    flex-grow: 1;
 }
 
-#inner-3 {
-    background-color: rgb(0, 255, 72);
+
+.inner-title {
+    margin: 50px;
+    font-size: 1.5em;
+    /* color: rgb(0, 94, 255); */
+    color: #ff7c00;
+}
+
+
+.inner-list {
+    margin: 20px;
+}
+
+
+.inner-section {
+    margin: 80px 0px;
+}
+
+#inner-3 .inner-subtitle, #inner-3 .inner-result {
+    /* display: inline; */
+    display: inline;
+    padding: 20px;
+}
+
+
+
+/* #inner-3 {
+    padding-top: 150px; 
+}   */
+
+
+/* Buttons */
+.btn {
+    text-align: center;
+    text-decoration: none;
+    background-color: rgb(0, 94, 255) ;
+    border: #f8f8f8 solid 2px;
+    border-radius: 5px;
+    color: white;
+    padding: 15px 32px;
+    display: inline-block;
+    font-size: 0.8em;
+    font-family: 'Dosis', sans-serif;
+}
+
+.btn:hover {
+    cursor: pointer;
+    color: rgb(0, 94, 255);
+    background-color: white;
+    border: rgb(0, 94, 255) solid 2px;
+    border-radius: 5px;
+
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    /* ...and now for the proper property */
+    transition:.3s;
+}
+
+.inner-result {
+    color: #ff7c00;
 }

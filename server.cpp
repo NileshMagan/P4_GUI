@@ -10,12 +10,18 @@
 #include <stdlib.h>  
 #include <stdio.h>  
 #include "content.h"
+
 //includes for SW/HW neural network code
 #include <unistd.h>
 #include  "CImg.h"
 #include <string>
 #include "custom.h"
 #include <time.h>
+
+//freq in Mhz
+// #define swFreq 1900
+#define swFreq 2400
+#define hwFreq 100
 
 class server : public cppcms::application {  
     public:  
@@ -33,7 +39,7 @@ class server : public cppcms::application {
         void saveImage(std::string h) {  
             std::cout << "- Starting saveImage API "  << std::endl;
 
-            // Process input
+			 // Process input
             content::upload c;
             if(request().request_method()=="POST") {
                 std::cout << "- Request was POSTed successfully " << std::endl;
@@ -69,9 +75,13 @@ class server : public cppcms::application {
 					strcpy(char_array, imagePath.c_str()); 
 					cimg_library::CImg<unsigned char> image(char_array);	
 					
+					std::cout << "Before opening COM port" << std::endl;
+					
 					//Open files to read/write to the serial port
-					fileW = fopen("/dev/ttyS5", "w");
-					fileR = fopen("/dev/ttyS5", "r");
+					fileW = fopen("/dev/ttyS4", "w");
+					fileR = fopen("/dev/ttyS4", "r");
+					
+					std::cout << "Finished opening COM port" << std::endl;
 					
 					//Loop through the image and send it to HW over serial port
 					for(int i = 0; i<28; i++){
@@ -87,18 +97,22 @@ class server : public cppcms::application {
 							fprintf(fileW, "%c", seperator);
 						}
 					}
+					
+					std::cout << "sent image" << std::endl;
 
 					//Run a local SW implementation of the neural net and time
 					clock_t start = clock();
 					neural_net(&imageForSw, &SwRes);
 					clock_t end = clock();
-					double swTimeTaken = (double)(end-start)/CLOCKS_PER_SEC;
+					double swTimeTaken = ((double)(end-start)/CLOCKS_PER_SEC);
 					
 					//Send the SW result to HW for comparison
 					fprintf(fileW, "%d", SwRes);
 					fprintf(fileW, "%c", '!');		
 					fclose(fileW);
 					
+					std::cout << "Waiting for response" << std::endl;
+
 					//read the response from HW
 					fscanf(fileR, "%s" "%s", responseBuffer, hwTimeBuffer);
 					fclose(fileR);
@@ -108,14 +122,14 @@ class server : public cppcms::application {
 					double hwTimeTaken = atof(hwTimeBuffer);
 					
 					printf("Full image sent\n");
-					printf("SW result: %d; SW time taken: %f\n", SwRes, swTimeTaken);
-					printf("HW result: %d; HW time taken: %f\n", HwRes, hwTimeTaken);
+					printf("SW result: %d; SW cycles per image (million): %f\n", SwRes, swTimeTaken*swFreq);
+					printf("HW result: %d; SW cycles per image (million) %f\n", HwRes, hwTimeTaken*hwFreq);
 					printf("------------------------------------\n");	
 					
-					response().out() << "SW Result: " << SwRes << " SW time is: " << swTimeTaken << "\n" << "HW Result: " << HwRes << " HW time is: " << hwTimeTaken << "\n";
-                }
-            }
-            std::cout << "- Ending saveImage API " << std::endl;
+					response().out() << "SW Result: " << SwRes << " SW cycles is: " << swTimeTaken*swFreq << "\n" << "HW Result: " << HwRes << " HW cycles is: " << hwTimeTaken*hwFreq << "\n";
+				}
+			}
+			std::cout << "- Ending saveImage API " << std::endl;
         }  
 
         // Default method that runs every time (it seems)

@@ -3,8 +3,9 @@
     <!-- Head -->
     <head>
       <title>HW vs SW</title>
+      <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
       <link rel="stylesheet" href="/res/css/style.css">
-      <nav>NAVBAR</nav>
+      <div class="nav">Digit Detector</div>
     </head>
 
     <!-- Body -->
@@ -54,10 +55,13 @@
       
       <!-- Section 1 -->
       <div id="inner-1" class="inner">
-        <div class="inner-list"> 
-          Draw a digit from 0-9, then click send
+        <div class="inner-title"> 
+          Instructions
         </div>    
-        <button onclick="processImage()">
+        <div class="inner-list"> 
+          Draw a digit from 0-9 on the black canvas, then click send
+        </div>    
+        <button class="btn btn-info" onclick="processImage()">
           Send Image
         </button>
         
@@ -102,26 +106,50 @@
 
       <!-- Section 2 -->
       <div id="inner-2" class="inner">
-        <canvas id="c" width="600" height="600"></canvas>
+        <canvas id="c" width="700" height="700"></canvas>
       </div>
 
       <!-- Section 3 -->
       <div id="inner-3" class="inner">
-        <div class="inner-list"> 
-          Speed of Hardware was: 
-        </div>    
-        <div class="inner-list"> 
-          Speed of Software was: 
-        </div>    
-        <div class="inner-list"> 
-          Cycles/Image of Hardware was: 
-        </div>    
-        <div class="inner-list"> 
-          Cycles/Image of Software was: 
-        </div>    
-        <button onclick="processImage()">
-          Send Image
-        </button>
+        <div class="inner-title"> 
+          Results
+        </div>   
+
+        <div class="inner-section">
+          <div class="inner-list"> 
+            Detected number: 
+          </div>    
+          <div class="inner-subtitle"> 
+            Hardware: 
+          </div>    
+          <div class="inner-result"> 
+            4
+          </div>    
+          <div class="inner-subtitle"> 
+            Software: 
+          </div>    
+          <div class="inner-result"> 
+            4
+          </div> 
+        </div>
+
+        <div class="inner-section">
+          <div class="inner-list"> 
+            Clock cycles taken: 
+          </div>    
+          <div class="inner-subtitle"> 
+            Hardware: 
+          </div>    
+          <div class="inner-result"> 
+            4
+          </div>    
+          <div class="inner-subtitle"> 
+            Software: 
+          </div>    
+          <div class="inner-result"> 
+            4
+          </div> 
+        </div>
       </div>
 
     </div>

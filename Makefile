@@ -16,7 +16,7 @@
 
 TARGET = server
 LIBS = -lcppcms -lbooster -lm -lpthread -lX11
-CC = g++
+CC = g++ -std=c++11
 CFLAGS = -g -Wall 
 
 .PHONY: default all clean run
@@ -40,4 +40,7 @@ clean:
 	#-rm -f $(TARGET)
 	
 run:
+	export LD_LIBRARY_PATH=/usr/local/lib
+	sudo chmod o+rw /dev/ttyS4
+	stty -F /dev/ttyS4 9600
 	./$(TARGET) -c config.js
