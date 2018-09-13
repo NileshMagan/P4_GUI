@@ -102,6 +102,27 @@
           </div>
 
         </div>
+
+
+        <div class="inner-section">
+          <div class="inner-title"> 
+            Statistics 
+          </div>    
+          <div class="inner-subtitle"> 
+            Accuracy (%): 
+          </div>    
+          <div id="accuracy" class="inner-result"> 
+            -
+          </div>    
+          <div class="inner-subtitle"> 
+            No. of images: 
+          </div>    
+          <div id="image-no" class="inner-result"> 
+            -
+          </div> 
+        </div>
+
+
       </div>
 
       <!-- Section 2 -->
@@ -150,6 +171,9 @@
             -
           </div> 
         </div>
+
+        <button class="btn correct" onclick="updateStatistics(true)"> Correct </button>
+        <button class="btn wrong" onclick="updateStatistics(false)"> Wrong </button>
       </div>
 
     </div>

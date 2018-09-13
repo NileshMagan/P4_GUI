@@ -36,7 +36,7 @@ body {
 
 .inner {
     padding: 30px;
-    font-size: 2.5em;
+    font-size: 2.0em;
     background-color: #f8f8f8;
     /* flex-grow: 1; */
     /* justify-content: center; */
@@ -132,4 +132,12 @@ body {
     display: none;
     top: 0px;
     position: absolute;
+}
+
+.correct {
+    background-color: rgba(50, 176, 100, 0.8);
+}
+
+.wrong {
+    background-color: rgba(250, 12, 12, 0.8);
 }

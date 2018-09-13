@@ -269,6 +269,24 @@ function cloneCanvas(oldCanvas) {
   return newCanvas;
 }
 
+var numberOfImages = 0;
+var numberCorrect = 0;
+// Statistics updater
+function updateStatistics( check ) {
+  numberOfImages++;
+  if (check) {
+    numberCorrect++;
+    accuracy = numberCorrect/numberOfImages * 100;
+    document.getElementById("accuracy").innerHTML = accuracy; 
+    document.getElementById("image-no").innerHTML = numberOfImages; 
+  } else {
+    accuracy = numberCorrect/numberOfImages * 100;
+    document.getElementById("accuracy").innerHTML = accuracy; 
+    document.getElementById("image-no").innerHTML = numberOfImages; 
+  }
+}
+
+
 // Triggered to send image to backend
 function processImage() {
   
@@ -317,6 +335,7 @@ function processImage() {
       document.getElementById("SW-res").innerHTML = data.SW.res; 
       document.getElementById("HW-CC").innerHTML = data.HW.clockCycles; 
       document.getElementById("SW-CC").innerHTML = data.SW.clockCycles; 
+
 		},
 		error: function(response, status, jqXHR){
 			console.log(status);
